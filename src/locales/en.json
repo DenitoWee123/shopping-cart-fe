@@ -102,7 +102,15 @@
     "itemsToAdd": "Items to add",
     "inCart": "In cart",
     "alreadyAdded": "Already added",
-    "availableProducts": "Available products"
+    "availableProducts": "Available products",
+    "progress": "Shopping Progress",
+    "toBuy": "To Buy",
+    "bought": "Bought",
+    "remaining": "Remaining",
+    "purchased": "Purchased",
+    "originalTotal": "Original Total",
+    "markAsBought": "Mark as bought",
+    "markAsNotBought": "Mark as not bought"
   },
   "auth": {
     "login": "Login",

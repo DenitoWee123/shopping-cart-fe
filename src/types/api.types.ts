@@ -76,6 +76,7 @@ export interface BasketItem {
   quantity: number;
   storeName: string;
   price: number;
+  purchased?: boolean;
   lowerPriceItem?: PriceComparisonDto | null;
 }
 

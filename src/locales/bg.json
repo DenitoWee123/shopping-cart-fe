@@ -102,7 +102,15 @@
     "itemsToAdd": "Артикули за добавяне",
     "inCart": "В количката",
     "alreadyAdded": "Вече добавени",
-    "availableProducts": "Налични продукти"
+    "availableProducts": "Налични продукти",
+    "progress": "Напредък на пазаруването",
+    "toBuy": "За купуване",
+    "bought": "Купено",
+    "remaining": "Остават",
+    "purchased": "Купено",
+    "originalTotal": "Оригинална сума",
+    "markAsBought": "Отбележи като купено",
+    "markAsNotBought": "Отбележи като некупено"
   },
   "auth": {
     "login": "Вход",
