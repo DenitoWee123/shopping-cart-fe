@@ -27,7 +27,7 @@ export const useCurrentBasket = () => {
 
 export const useCreateBasket = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: (name: string) => basketService.createBasket(name),
     onSuccess: () => {
@@ -46,7 +46,7 @@ export const useSelectBasket = (basketId: string) => {
 
 export const useSelectBasketMutation = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: (basketId: string) => basketService.selectBasket(basketId),
     onSuccess: () => {
@@ -56,31 +56,31 @@ export const useSelectBasketMutation = () => {
 };
 
 const updateBasketCache = (
-  queryClient: ReturnType<typeof useQueryClient>,
-  cartId: string,
-  enrichedBasket: ShoppingBasketDto
+    queryClient: ReturnType<typeof useQueryClient>,
+    cartId: string,
+    enrichedBasket: ShoppingBasketDto
 ) => {
   queryClient.setQueryData<BasketSelectionResponse>(
-    basketKeys.detail(cartId),
-    (oldData) => {
-      if (!oldData) return oldData;
-      return {
-        ...oldData,
-        currentBasket: enrichedBasket,
-      };
-    }
+      basketKeys.detail(cartId),
+      (oldData) => {
+        if (!oldData) return oldData;
+        return {
+          ...oldData,
+          currentBasket: enrichedBasket,
+        };
+      }
   );
 };
 
 export const useAddItem = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: ({
-      productId,
-      cartId,
-      quantity,
-    }: {
+                   productId,
+                   cartId,
+                   quantity,
+                 }: {
       productId: string;
       cartId: string;
       quantity: number;
@@ -94,12 +94,12 @@ export const useAddItem = () => {
 
 export const useAddItemsBatch = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: ({
-      cartId,
-      items,
-    }: {
+                   cartId,
+                   items,
+                 }: {
       cartId: string;
       items: AddItemRequest[];
     }) => basketService.addItemsBatch(cartId, items),
@@ -112,12 +112,12 @@ export const useAddItemsBatch = () => {
 
 export const useUpdateQuantity = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: ({
-      basketItemId,
-      quantity,
-    }: {
+                   basketItemId,
+                   quantity,
+                 }: {
       basketItemId: string;
       quantity: number;
       cartId: string;
@@ -132,11 +132,11 @@ export const useUpdateQuantity = () => {
 
 export const useRemoveItem = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: ({
-      productId,
-    }: {
+                   productId,
+                 }: {
       productId: string;
       cartId: string;
     }) => basketService.removeItem(productId),
@@ -150,11 +150,30 @@ export const useRemoveItem = () => {
 
 export const useJoinCart = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: (code: string) => basketService.joinCart(code),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: basketKeys.lists() });
+    },
+  });
+};
+
+export const useToggleItemPurchased = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+                   productId,
+                   cartId,
+                   purchased,
+                 }: {
+      productId: string;
+      cartId: string;
+      purchased: boolean;
+    }) => basketService.toggleItemPurchased(productId, cartId, purchased),
+    onSuccess: (data, variables) => {
+      updateBasketCache(queryClient, variables.cartId, data);
     },
   });
 };

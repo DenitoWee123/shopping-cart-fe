@@ -11,6 +11,7 @@ export {
   useUpdateQuantity,
   useRemoveItem,
   useJoinCart,
+  useToggleItemPurchased,
   basketKeys,
 } from './useBasket';
 
